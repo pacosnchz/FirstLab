@@ -2,4 +2,8 @@
         <string name="app_name">Super Game Counter</string>
         <string name="username_label">Nombre de usuario</string>
         <string name="play_button">Jugar</string>
+    <string name="score_label">Puntuación:</string>
+    <string name="level_label">Nivel:</string>
+    <string name="increase_button">Incrementar puntuación (+ aleatorio)</string>
+
 </resources>

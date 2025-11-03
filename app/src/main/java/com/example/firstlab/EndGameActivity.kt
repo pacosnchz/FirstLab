@@ -54,7 +54,7 @@ fun EndGameScreen(username: String, score: Int, level: Int, finishedByLevel10: B
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Información del jugador
+            // Info jugador
             Text("Jugador: $username", fontSize = 20.sp)
             Text("Puntuación final: $score", fontSize = 20.sp)
             Text("Nivel alcanzado: $level", fontSize = 20.sp, modifier = Modifier.padding(bottom = 24.dp))
@@ -76,7 +76,7 @@ fun EndGameScreen(username: String, score: Int, level: Int, finishedByLevel10: B
                 )
             }
 
-            // 🔹 Nueva fila con imagen y botón "Enviar datos..."
+            // 🔹 Fila con imagen + botón "Enviar datos..."
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -90,7 +90,18 @@ fun EndGameScreen(username: String, score: Int, level: Int, finishedByLevel10: B
 
                 Button(
                     onClick = {
-                        // funcionalidad se implementará en Actividad 9
+                        // 🔸 Intent para enviar los datos
+                        val subject = "Puntuación del jugador $username"
+                        val body = "El jugador $username ha obtenido una puntuación de $score puntos y ha alcanzado el nivel $level."
+
+                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_SUBJECT, subject)
+                            putExtra(Intent.EXTRA_TEXT, body)
+                        }
+
+                        val chooser = Intent.createChooser(sendIntent, "Enviar datos del jugador")
+                        context.startActivity(chooser)
                     },
                     modifier = Modifier.height(48.dp)
                 ) {

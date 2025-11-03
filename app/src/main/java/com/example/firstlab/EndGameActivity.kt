@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,7 +20,6 @@ class EndGameActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Datos recibidos del Intent
         val username = intent.getStringExtra("username") ?: "Jugador"
         val score = intent.getIntExtra("score", 0)
         val level = intent.getIntExtra("level", 1)
@@ -45,6 +46,7 @@ fun EndGameScreen(username: String, score: Int, level: Int, finishedByLevel10: B
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Título
             Text(
                 text = "Fin del juego",
                 fontSize = 28.sp,
@@ -52,33 +54,58 @@ fun EndGameScreen(username: String, score: Int, level: Int, finishedByLevel10: B
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Mostrar puntuación y nivel
+            // Información del jugador
             Text("Jugador: $username", fontSize = 20.sp)
             Text("Puntuación final: $score", fontSize = 20.sp)
             Text("Nivel alcanzado: $level", fontSize = 20.sp, modifier = Modifier.padding(bottom = 24.dp))
 
-            // ✅ Mensaje personalizado según cómo llegó
+            // Mensaje personalizado
             if (finishedByLevel10) {
                 Text(
                     text = "¡Felicidades, alcanzaste el nivel 10!",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 32.dp)
+                    modifier = Modifier.padding(bottom = 24.dp)
                 )
             } else {
                 Text(
                     text = "Juego terminado. Pulsa el botón para volver a empezar.",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 32.dp)
+                    modifier = Modifier.padding(bottom = 24.dp)
                 )
             }
 
-            // 🔁 Botón para volver al inicio (opcional)
-            Button(onClick = {
-                val intent = Intent(context, LauncherActivity::class.java)
-                context.startActivity(intent)
-            }) {
+            // 🔹 Nueva fila con imagen y botón "Enviar datos..."
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.trophy), // tu imagen
+                    contentDescription = "Trophy",
+                    modifier = Modifier.size(80.dp)
+                )
+
+                Button(
+                    onClick = {
+                        // funcionalidad se implementará en Actividad 9
+                    },
+                    modifier = Modifier.height(48.dp)
+                ) {
+                    Text("Enviar datos...")
+                }
+            }
+
+            // Botón para volver al inicio
+            Button(
+                onClick = {
+                    val intent = Intent(context, LauncherActivity::class.java)
+                    context.startActivity(intent)
+                },
+                modifier = Modifier.padding(top = 24.dp)
+            ) {
                 Text("Volver a iniciar")
             }
         }

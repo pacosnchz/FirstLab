@@ -8,4 +8,7 @@
         <string name="decrease_button">Decrementar puntuación (- doble del nivel)</string>
         <string name="end_game_button">End Game</string>
         <string name="good_progress">¡Vas en buen camino!</string>
+        <string name="send_data_button">Enviar datos...</string>
+        <string name="trophy_desc">Trophy</string>
+
 </resources>

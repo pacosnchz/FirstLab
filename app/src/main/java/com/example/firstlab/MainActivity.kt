@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Recibir el nombre del usuario desde LauncherActivity
         val username = intent.getStringExtra("username") ?: "Jugador"
 
         setContent {
@@ -42,7 +41,7 @@ fun MainScreen(username: String) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Nombre del usuario
+            // Mostrar nombre de usuario
             Text(
                 text = "Bienvenido, $username",
                 fontSize = 22.sp,
@@ -62,15 +61,28 @@ fun MainScreen(username: String) {
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
-            // Botón para incrementar puntuación
+            // Botón para incrementar puntuación (actividad 2)
             Button(
                 onClick = {
                     val incremento = Random.nextInt(1, level + 1)
                     score += incremento
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
             ) {
                 Text("Incrementar puntuación (+ aleatorio)")
+            }
+
+            // 🔽 Botón para decrementar puntuación (actividad 3)
+            Button(
+                onClick = {
+                    val decremento = level * 2
+                    score = (score - decremento).coerceAtLeast(0) // evita que baje de 0
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Decrementar puntuación (- doble del nivel)")
             }
         }
     }

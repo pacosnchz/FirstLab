@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,9 +36,17 @@ fun MainScreen(username: String) {
 
     val context = LocalContext.current
 
+    // 🔹 Determinar color según nivel
+    val backgroundColor = when (level) {
+        in 0..2 -> colorResource(id = R.color.level_low)
+        in 3..6 -> colorResource(id = R.color.level_mid)
+        in 7..9 -> colorResource(id = R.color.level_high)
+        else -> MaterialTheme.colorScheme.background
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        color = backgroundColor
     ) {
         Column(
             modifier = Modifier
@@ -46,7 +55,7 @@ fun MainScreen(username: String) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Nombre de usuario
+            // Nombre del jugador
             Text(
                 text = "Bienvenido, $username",
                 fontSize = 22.sp,
@@ -55,16 +64,8 @@ fun MainScreen(username: String) {
             )
 
             // Puntuación y nivel
-            Text(
-                text = "Puntuación: $score",
-                fontSize = 20.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Text(
-                text = "Nivel: $level",
-                fontSize = 20.sp,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
+            Text("Puntuación: $score", fontSize = 20.sp, modifier = Modifier.padding(bottom = 8.dp))
+            Text("Nivel: $level", fontSize = 20.sp, modifier = Modifier.padding(bottom = 24.dp))
 
             // Botón para incrementar puntuación
             Button(
@@ -82,7 +83,7 @@ fun MainScreen(username: String) {
                         showMessage = true
                     }
 
-                    // Transición automática a EndGameActivity al nivel 10
+                    // Transición a EndGameActivity si llega a nivel 10
                     if (level >= 10) {
                         val intent = Intent(context, EndGameActivity::class.java).apply {
                             putExtra("username", username)
@@ -113,7 +114,7 @@ fun MainScreen(username: String) {
                 Text("Decrementar puntuación (- doble del nivel)")
             }
 
-            // Botón "End Game" (transición manual)
+            // Botón "End Game"
             Button(
                 onClick = {
                     val intent = Intent(context, EndGameActivity::class.java).apply {

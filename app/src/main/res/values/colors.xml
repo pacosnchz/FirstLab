@@ -1,5 +1,5 @@
 <resources>
-    <color name="level_low">#F44336</color> <!-- rojo -->
-    <color name="level_mid">#FF9800</color> <!-- naranja -->
-    <color name="level_high">#2E7D32</color> <!-- verde oscuro -->
+    <color name="level_low">#F44336</color>    <!-- Rojo -->
+    <color name="level_mid">#FF9800</color>    <!-- Naranja -->
+    <color name="level_high">#2E7D32</color>   <!-- Verde oscuro -->
 </resources>

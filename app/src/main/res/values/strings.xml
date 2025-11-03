@@ -6,4 +6,6 @@
         <string name="level_label">Nivel:</string>
         <string name="increase_button">Incrementar puntuación (+ aleatorio)</string>
         <string name="decrease_button">Decrementar puntuación (- doble del nivel)</string>
+        <string name="end_game_button">End Game</string>
+        <string name="good_progress">¡Vas en buen camino!</string>
 </resources>

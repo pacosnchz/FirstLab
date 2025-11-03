@@ -84,37 +84,37 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Método llamado cuando la actividad está a punto de hacerse visible
+    // Metodo llamado cuando la actividad está a punto de hacerse visible
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: La actividad está a punto de ser visible.")
     }
 
-    // Método llamado cuando la actividad se ha hecho visible
+    // Metodo llamado cuando la actividad se ha hecho visible
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume: La actividad está en primer plano y se puede interactuar con ella.")
     }
 
-    // Método llamado cuando otra actividad toma el control, poniendo esta actividad en segundo plano
+    // Metodo llamado cuando otra actividad toma el control, poniendo esta actividad en segundo plano
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause: La actividad está en segundo plano.")
     }
 
-    // Método llamado cuando la actividad ya no es visible para el usuario
+    // Metodo llamado cuando la actividad ya no es visible para el usuario
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "onStop: La actividad ya no es visible.")
     }
 
-    // Método llamado justo antes de que la actividad sea destruida
+    // Metodo llamado justo antes de que la actividad sea destruida
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy: La actividad ha sido destruida.")
     }
 
-    // Método llamado antes de que la actividad pase a segundo plano y guarde el estado
+    // Metodo llamado antes de que la actividad pase a segundo plano y guarde el estado
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(SCORE_KEY, score)
@@ -122,7 +122,7 @@ class MainActivity : ComponentActivity() {
         Log.d(TAG, "onSaveInstanceState: Guardando el estado de la actividad.")
     }
 
-    // Método llamado cuando se restaura el estado previamente guardado
+    // Metodo llamado cuando se restaura el estado previamente guardado
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d(TAG, "onRestoreInstanceState: Restaurando el estado de la actividad.")

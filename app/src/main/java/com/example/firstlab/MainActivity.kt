@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Recibir el nombre del usuario desde LauncherActivity
         val username = intent.getStringExtra("username") ?: "Jugador"
 
         setContent {
@@ -30,10 +29,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(username: String) {
-    // Variables principales del juego
     var score by remember { mutableStateOf(0) }
     var level by remember { mutableStateOf(1) }
     var showMessage by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -46,8 +46,7 @@ fun MainScreen(username: String) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            // 🔹 Nombre del jugador (Actividad 1)
+            // Nombre de usuario
             Text(
                 text = "Bienvenido, $username",
                 fontSize = 22.sp,
@@ -55,7 +54,7 @@ fun MainScreen(username: String) {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // 🔹 Mostrar puntuación y nivel
+            // Puntuación y nivel
             Text(
                 text = "Puntuación: $score",
                 fontSize = 20.sp,
@@ -67,7 +66,7 @@ fun MainScreen(username: String) {
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
-            // 🔹 Botón para incrementar puntuación (Actividad 2)
+            // Botón para incrementar puntuación
             Button(
                 onClick = {
                     val incremento = Random.nextInt(1, level + 1)
@@ -78,9 +77,20 @@ fun MainScreen(username: String) {
                         level++
                     }
 
-                    // Mostrar mensaje al llegar a nivel 5 (Actividad 4)
+                    // Mostrar mensaje al llegar a nivel 5
                     if (level >= 5) {
                         showMessage = true
+                    }
+
+                    // Transición automática a EndGameActivity al nivel 10
+                    if (level >= 10) {
+                        val intent = Intent(context, EndGameActivity::class.java).apply {
+                            putExtra("username", username)
+                            putExtra("score", score)
+                            putExtra("level", level)
+                            putExtra("finishedByLevel10", true)
+                        }
+                        context.startActivity(intent)
                     }
                 },
                 modifier = Modifier
@@ -90,7 +100,7 @@ fun MainScreen(username: String) {
                 Text("Incrementar puntuación (+ aleatorio)")
             }
 
-            // 🔹 Botón para decrementar puntuación (Actividad 3)
+            // Botón para decrementar puntuación
             Button(
                 onClick = {
                     val decremento = level * 2
@@ -103,12 +113,15 @@ fun MainScreen(username: String) {
                 Text("Decrementar puntuación (- doble del nivel)")
             }
 
-            // 🔹 Botón "End Game" (se usará más adelante en la actividad 5)
-            // Botón "End Game"
-            val context = LocalContext.current
+            // Botón "End Game" (transición manual)
             Button(
                 onClick = {
-                    val intent = Intent(context, EndGameActivity::class.java)
+                    val intent = Intent(context, EndGameActivity::class.java).apply {
+                        putExtra("username", username)
+                        putExtra("score", score)
+                        putExtra("level", level)
+                        putExtra("finishedByLevel10", false)
+                    }
                     context.startActivity(intent)
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -116,8 +129,7 @@ fun MainScreen(username: String) {
                 Text("End Game")
             }
 
-
-            // 🔹 Mensaje al alcanzar nivel 5 (Actividad 4)
+            // Mensaje al alcanzar nivel 5
             if (showMessage) {
                 Text(
                     text = "¡Vas en buen camino!",
